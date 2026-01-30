@@ -1,10 +1,8 @@
 #ifndef BOARD_H
 #define BOARD_H
-#include <cstdint>
 #include <string>
 #include <vector>
 #include <iostream>
-#include <ostream>
 
 struct boardState {
     int board_x;
@@ -32,17 +30,17 @@ class Board {
         Board(uint16_t board_x, uint16_t board_o, bool is_x_turn);
         Board(bool is_x_turn);
 
-        int evaluate(bool is_x_turn, bool recursive=true) const;
+        [[nodiscard]] int evaluate(bool is_x_turn, bool recursive=true) const;
         int active_evaluate(bool is_x_turn);
         bool restoreBoard(boardState board_state);
-        std::array<int, 4> get_info();
+        std::array<int, 4> get_info() const;
 
         bool putPos(uint16_t pos);
         bool putPos(uint16_t pos, bool turn);
 
-        bool isXTurn() const;
+        [[nodiscard]] bool isXTurn() const;
 
-        int check_win() const;
+        [[nodiscard]] int check_win() const;
 
         [[nodiscard]] std::vector<unsigned short> getAllPos() const;
         [[nodiscard]] uint16_t getMask() const;

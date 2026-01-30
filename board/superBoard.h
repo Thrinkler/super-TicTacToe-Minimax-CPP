@@ -1,7 +1,6 @@
 
 #ifndef SUPERBOARD_H
 #define SUPERBOARD_H
-#include <cstdint>
 #include "board.h"
 
 using namespace std;
@@ -38,22 +37,22 @@ public:
     superBoard();
 
     bool putPos(uint16_t superPos, uint16_t pos);
-    bool checkManyOrOne() const;
+    [[nodiscard]] bool checkManyOrOne() const;
 
-    int check_win() const;
+    [[nodiscard]] int check_win() const;
 
     std::array<int, 6> getAllInfo();
 
-    int evaluate(bool is_x_turn) const;
+    [[nodiscard]] int evaluate(bool is_x_turn) const;
     int active_evaluate(bool is_x_turn);
 
     bool restoreBoard(superGameState game_state);
 
-    bool isXTurn() const;
+    [[nodiscard]] bool isXTurn() const;
 
-    vector<uint16_t> getPos() const;
+    [[nodiscard]] vector<uint16_t> getPos() const;
     vector<pair<uint16_t,uint16_t>> getAllPos(vector<pair<uint16_t, uint16_t>> &out);
-    uint16_t getMaskForPos() const;
+    [[nodiscard]] uint16_t getMaskForPos() const;
 
 
     string printBoard();

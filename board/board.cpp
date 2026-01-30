@@ -41,6 +41,7 @@ int Board::active_evaluate(bool is_x) {
     int valuation = 0;
     valuated_for = is_x;
     for (int num_pos : num_positions) {
+        if ((num_pos & (my_board | enemy_board)) == 0) continue;
         if ((num_pos & board_x) == num_pos) {
             who_won = -1;
             st_valuation = is_x ? 10000 : -10000;
@@ -108,7 +109,7 @@ bool Board::restoreBoard(boardState board_state) {
     who_won = 0;
     return true;
 }
-std::array<int, 4> Board::get_info() {
+std::array<int, 4> Board::get_info() const {
     return {board_x, board_o,st_valuation,valuated_for};
 }
 

@@ -133,6 +133,7 @@ int superBoard::active_evaluate(bool is_x) {
     int valuation = 0;
     valuated_for = is_x;
     for (int num_pos : num_positions) {
+        if ((num_pos & (my_board | enemy_board)) == 0) continue;
         if ((num_pos & my_board) == num_pos) {
             who_won = is_x ? -1 : 1;
             st_valuation = 10000;
