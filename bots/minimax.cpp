@@ -56,7 +56,7 @@ pair<int,pair<uint16_t,uint16_t>> minimax::negamax(bool is_x_turn) {
 
 int minimax::make_move_n_evaluate(pair<uint16_t,uint16_t> move, bool is_x_turn) {
     array<int, 6> superInfo = board->getAllInfo();
-    array<int, 4> nInfo = board->boards[__builtin_ctz(move.first)].get_info();
+    array<int, 4> nInfo = board->boards[std::countr_zero(move.first)].get_info();
     boardState board_state = {
         nInfo[0],nInfo[1],nInfo[2],nInfo[3]
     };
@@ -132,7 +132,7 @@ pair<int,pair<uint16_t,uint16_t>> minimax::negamax(int depth, bool is_x_turn, in
 
     for (auto &val: scored_moves | views::values) {
         array<int, 6> superInfo = board->getAllInfo();
-        array<int, 4> nInfo = board->boards[__builtin_ctz(val.first)].get_info();
+        array<int, 4> nInfo = board->boards[std::countr_zero(val.first)].get_info();
         boardState board_state = {
             nInfo[0],nInfo[1],nInfo[2],nInfo[3]
         };

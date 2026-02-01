@@ -20,7 +20,7 @@ bool superBoard::putPos(uint16_t superPos, uint16_t pos) {
     if (( superPos > 0 && (superPos & superPos - 1) != 0) || superPos & comp_board){
         return false;
     }
-    int board_to_play = __builtin_ctz(superPos);
+    int board_to_play = std::countr_zero(superPos);
 
     bool success = boards[board_to_play].putPos(pos,is_x_turn);
     if (!success) return false;
@@ -70,7 +70,7 @@ vector<uint16_t> superBoard::getPos() const {
     all_pos.reserve(9);
     uint16_t board = ~(bigBoard_o | bigBoard_x | bigBoard_draws)&511;
     while (board) {
-        all_pos.push_back(1 << __builtin_ctzll(board));
+        all_pos.push_back(1 << std::countr_zero(board));
         board&=(board-1);
     }
     return all_pos;
@@ -83,13 +83,13 @@ vector<pair<uint16_t, uint16_t> > superBoard::getAllPos(vector<pair<uint16_t, ui
     }
     if (last_move == 0 || last_move & covered) {
         for (uint16_t iterator : getPos()) {
-            for (uint16_t pos : boards[__builtin_ctz(iterator)].getAllPos()) {
+            for (uint16_t pos : boards[std::countr_zero(iterator)].getAllPos()) {
                 out.emplace_back(iterator,pos);
             }
         }
     }
     else {
-        Board board = boards[__builtin_ctz(last_move)];
+        Board board = boards[std::countr_zero(last_move)];
         for (uint16_t pos : board.getAllPos()) {
             out.emplace_back(last_move,pos);
         }
@@ -111,7 +111,7 @@ bool superBoard::restoreBoard(superGameState game_state) {
     is_x_turn = !is_x_turn;
     who_won = 0;
 
-    boards[__builtin_ctz(game_state.erasing_supermove)]
+    boards[std::countr_zero((unsigned int)game_state.erasing_supermove)]
         .restoreBoard(game_state.board_state);
 
     return true;
@@ -145,11 +145,11 @@ int superBoard::active_evaluate(bool is_x) {
             return -10000;
         }
         if ((num_pos & my_board)!= 0&& ((num_pos & enemy_board) == 0)) {
-            int add = __builtin_popcount(num_pos & my_board);
+            int add = std::popcount((unsigned int)num_pos & my_board);
             valuation+= add == 2? 100: 10;;
         }
         else if ((num_pos&enemy_board)!= 0 && ((num_pos & my_board) == 0)) {
-            int add = __builtin_popcount(num_pos & enemy_board);
+            int add = std::popcount((unsigned int)num_pos & enemy_board);
             valuation-= add == 2? 100: 10;;
         }
     }
@@ -186,8 +186,8 @@ array<Board,9> superBoard::getBoards() {
 string superBoard::printBoard() {
     string all_outs[9];
     int it = 0;
-    int board_num = last_board_chosen ? __builtin_ctz(last_board_chosen): 9;
-    int pos_num = last_move?__builtin_ctz(last_move): 9;
+    int board_num = last_board_chosen ? std::countr_zero(last_board_chosen): 9;
+    int pos_num = last_move?std::countr_zero(last_move): 9;
     for (Board board : boards) {
         all_outs[it] = board_num ==it? board.printBoard(last_move) : board.printBoard();
         it++;

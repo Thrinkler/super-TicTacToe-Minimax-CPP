@@ -2,6 +2,7 @@
 #define BETTERSUPERTICTACTOEMINMAX_MINIMAX_H
 #include "../board/superBoard.h"
 #include <chrono>
+#include <algorithm>
 #include <ranges>
 
 class minimax {

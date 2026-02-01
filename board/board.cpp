@@ -53,11 +53,11 @@ int Board::active_evaluate(bool is_x) {
             return st_valuation;
         }
         if (((num_pos & my_board)!= 0) && ((num_pos & enemy_board)== 0)) {
-            int add = __builtin_popcount(num_pos & my_board);
+            int add = std::popcount((unsigned int)num_pos & my_board);
             valuation+= add == 2? 100: 10;
         }
         else if (((num_pos&enemy_board)!= 0) &&((num_pos & my_board) == 0)) {
-            int add = __builtin_popcount(num_pos & enemy_board);
+            int add = std::popcount((unsigned int)num_pos & enemy_board);
             valuation-= add == 2? 100: 10;;
         }
     }
@@ -119,7 +119,7 @@ vector<uint16_t> Board::getAllPos() const {
     all_pos.reserve(9);
     uint16_t board = ~(board_x| board_o)&511;
     while (board) {
-        all_pos.push_back(1 << __builtin_ctzll(board));
+        all_pos.push_back(1 << std::countr_zero(board));
         board&=(board-1);
     }
     return all_pos;

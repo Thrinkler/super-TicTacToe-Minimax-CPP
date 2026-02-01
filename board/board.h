@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <cstdint>
+#include <bit>
 
 struct boardState {
     int board_x;
