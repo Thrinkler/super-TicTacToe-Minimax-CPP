@@ -3,6 +3,7 @@
 #include "../board/superBoard.h"
 #include <chrono>
 #include <algorithm>
+#include <array>
 #include <ranges>
 
 class minimax {

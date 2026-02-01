@@ -2,6 +2,7 @@
 #ifndef SUPERBOARD_H
 #define SUPERBOARD_H
 #include "board.h"
+#include <array>
 
 using namespace std;
 
