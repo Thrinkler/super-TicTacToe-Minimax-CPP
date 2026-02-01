@@ -58,7 +58,7 @@ int pvb(superBoard &super_board, Board &board, minimax &minmax) {
 int main() {
     superBoard super_board;
     Board board;
-    minimax minmax = minimax( &super_board, 11,5);
+    minimax minmax = minimax( &super_board, 11,8);
     for (int i = 0; i < 100; i++) {
         if (bvb(super_board, board, minmax) != 0) break;
     }

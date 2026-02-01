@@ -3,6 +3,7 @@
 #include "../board/superBoard.h"
 
 class minimax {
+
     private:
         superBoard *board;
         int min_depth;
@@ -11,8 +12,11 @@ class minimax {
         std::chrono::high_resolution_clock::time_point startTime;
         int max_depth_num = 10;
         int max_time = 5;
+        long long avg = 0;
+
         bool time_over = false;
     public:
+
 
         minimax(int m_depth, superBoard *board);
 

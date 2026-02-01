@@ -40,8 +40,8 @@ pair<int,pair<uint16_t,uint16_t>> minimax::negamax(bool is_x_turn) {
         else last_out = out;
         end = std::chrono::high_resolution_clock::now();
         depth ++;
-
     }
+    min_depth = depth;
 
     std::chrono::duration<double, std::milli> duration = end - startTime;
     cout << "Thinking time: " << duration.count() << " ms" << std::endl;
@@ -122,10 +122,10 @@ pair<int,pair<uint16_t,uint16_t>> minimax::negamax(int depth, bool is_x_turn, in
 
 
 
-    sort(scored_moves.begin(), scored_moves.end(),
-        [](const auto a,const auto b) {
-                            return a.first > b.first;
-        });
+    ranges::sort(scored_moves,
+                 [](const auto a,const auto b) {
+                     return a.first > b.first;
+                 });
 
     pair<uint16_t, uint16_t> best_move = scored_moves[0].second;
     int best_score = -1000000;

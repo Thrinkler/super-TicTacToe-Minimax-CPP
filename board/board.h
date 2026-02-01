@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <cstdint>
 
 struct boardState {
     int board_x;
