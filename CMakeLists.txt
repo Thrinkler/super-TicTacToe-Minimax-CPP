@@ -3,10 +3,7 @@ project(BetterSuperTicTacToeMinMax)
 
 set(CMAKE_CXX_STANDARD 20)
 
-if(CMAKE_BUILD_TYPE MATCHES "Release")
-    add_compile_options(-O3 -march=native -flto)
-    add_link_options(-O3 -march=native -flto)
-endif()
+
 
 set(GAME_SOURCES
         board/board.cpp
@@ -23,8 +20,17 @@ add_executable(BetterSuperTicTacToeMinMax
 )
 
 
-add_executable(run_tests
-        tests/test_board.cpp
-        ${GAME_SOURCES}
-)
-
+if(MSVC)
+    target_compile_options(BetterSuperTicTacToeMinMax PRIVATE /O2 /Oi /Ot /GL /arch:AVX2 /D_CRT_SECURE_NO_WARNINGS)
+    set_target_properties(BetterSuperTicTacToeMinMax PROPERTIES LINK_FLAGS "/LTCG")
+else()
+    if(CMAKE_BUILD_TYPE MATCHES "Release")
+        target_compile_options(BetterSuperTicTacToeMinMax PRIVATE -O3 -march=native
+                -flto -funroll-loops
+                -ffast-math)
+        target_link_options(BetterSuperTicTacToeMinMax PRIVATE
+                -flto
+                -O3
+        )
+    endif()
+endif()
