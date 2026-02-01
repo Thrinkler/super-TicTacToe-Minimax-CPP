@@ -1,6 +1,6 @@
 #include "minimax.h"
 
-#include <ranges>
+
 
 minimax::minimax(int m_depth, superBoard *board):min_depth(m_depth) {
     this -> board = board;
