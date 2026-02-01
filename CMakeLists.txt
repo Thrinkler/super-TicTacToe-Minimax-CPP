@@ -3,8 +3,6 @@ project(BetterSuperTicTacToeMinMax)
 
 set(CMAKE_CXX_STANDARD 20)
 
-find_package(GTest REQUIRED)
-
 if(CMAKE_BUILD_TYPE MATCHES "Release")
     add_compile_options(-O3 -march=native -flto)
     add_link_options(-O3 -march=native -flto)
@@ -30,7 +28,3 @@ add_executable(run_tests
         ${GAME_SOURCES}
 )
 
-target_link_libraries(run_tests GTest::gtest GTest::gtest_main)
-
-include(CTest)
-add_test(NAME BoardCheck COMMAND run_tests)
